@@ -21,4 +21,10 @@ public interface DvdLibraryDao {
     Dvd removeDvd(String title);
     
     Dvd editDvd(String title);
+    
+    Dvd changeRating (String title, String rating);
+    
+    Dvd changeDirector(String title, String name);
+    
+    Dvd changeStudio(String title, String name);
 }

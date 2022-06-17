@@ -50,4 +50,25 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     public Dvd editDvd(String title) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    @Override
+    public Dvd changeRating(String title, String rating) {
+        Dvd dvdToChange = dvds.get(title);
+        dvdToChange.setRating(rating);
+        return dvdToChange;
+    }
+    
+    @Override
+    public Dvd changeDirector(String title, String name) {
+        Dvd dvdToChange = dvds.get(title);
+        dvdToChange.setDirector(name);
+        return dvdToChange;
+    }
+    
+    @Override 
+    public Dvd changeStudio(String title, String studio) {
+        Dvd dvdToChange = dvds.get(title);
+        dvdToChange.setStudio(studio);
+        return dvdToChange;
+    }
 }

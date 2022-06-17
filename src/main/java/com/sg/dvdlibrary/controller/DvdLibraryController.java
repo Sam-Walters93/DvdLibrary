@@ -109,13 +109,13 @@ public class DvdLibraryController {
            
                switch (userSelection){
                    case 1:
-                       editDirector();
+                       this.editDirector(dTitle);
                        break;
                    case 2:
-                       editRating();
+                       this.editRating(dTitle);
                        break;
                    case 3:
-                       editStudio();
+                       this.editStudio(dTitle);
                        break;
                    case 4:
                        keepGoing = false;
@@ -132,14 +132,20 @@ public class DvdLibraryController {
     }
     
     private void editRating(String title){
-       
+       String newRating = view.getRating();
+       Dvd editDvd = dao.changeRating(title, newRating);
+       view.displayEditResults();  
     }
     
     private void editDirector(String title){
-       
+       String newName = view.getDirectorName();
+       Dvd editDvd = dao.changeDirector(title, newName);
+       view.displayEditResults();
     }
     
-     private void editStudio(String title){
-       
+    private void editStudio(String title){
+       String newStudio = view.getStudioName();
+       Dvd editDvd = dao.changeStudio(title, newStudio);
+       view.displayEditResults();
     }
 }

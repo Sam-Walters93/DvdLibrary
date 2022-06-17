@@ -121,15 +121,31 @@ public class DvdLibraryView {
     public void displayExit() {
         io.print("Goodbye");
     }
-//    public int getEditMenuInput() {
-//        io.print("Which field do you want to change?");
-//        io.print("Edit DVD menu");
-//        io.print("1. Director's Name");
-//        io.print("2. MPAA rating");
-//        io.print("3. Studio name");
-//        io.print("4. Exit edit menu");
-//        return io.readInt("Please select from the above choices.", 1,4);
-//    }
+    
+    public String getRating() {
+        return io.readString("Please enter new MPAA rating");
+    }
+    
+    public void displayEditResults() {
+        io.print("-----------TITLE EDITED-------------");
+    }
+    
+    public String getDirectorName() {
+        return io.readString("Please enter new Director Name");
+    }
+    
+    public String getStudioName() {
+        return io.readString("Please enter new Studio");
+    }
+    public int getEditMenuInput() {
+        io.print("Which field do you want to change?");
+        io.print("Edit DVD menu");
+        io.print("1. Director's Name");
+        io.print("2. MPAA rating");
+        io.print("3. Studio name");
+        io.print("4. Exit edit menu");
+        return io.readInt("Please select from the above choices.", 1,4);
+    }
      
      
 }
