@@ -28,6 +28,7 @@ public class Dvd {
         hash = 31 * hash + Objects.hashCode(this.rating);
         hash = 31 * hash + Objects.hashCode(this.director);
         hash = 31 * hash + Objects.hashCode(this.studio);
+        hash = 31 * hash + Objects.hashCode(this.note);
         return hash;
     }
 

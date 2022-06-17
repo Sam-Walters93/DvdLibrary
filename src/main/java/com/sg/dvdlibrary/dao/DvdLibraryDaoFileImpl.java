@@ -43,7 +43,6 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
  
     @Override
     public Dvd addDvd(String title, Dvd dvd) {
-        loadLibrary();
         Dvd prevD = dvds.put(title, dvd); 
         writeLibrary();
         return prevD;
@@ -51,17 +50,24 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public List<Dvd> getAllDvds() {
+        loadLibrary();
         return new ArrayList<Dvd>(dvds.values());
     }
 
     @Override
     public Dvd getDvd(String title) {
+        loadLibrary();
         return dvds.get(title);
     }
 
     @Override
     public Dvd removeDvd(String title) {
         Dvd removedTitle = dvds.remove(title); 
+//        System.out.println(removedTitle);
+//        for (Dvd d: dvds.values()) {
+//            System.out.println(d + " loop");
+//        }
+        writeLibrary();
         return removedTitle;
     }
 
@@ -108,7 +114,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
                     new BufferedReader(
                             new FileReader(LIBRARY_FILE)));
         } catch (FileNotFoundException e) {
-           
+//           handle 
         }
         
         String currentLine;
@@ -130,13 +136,17 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
    
         PrintWriter out;
         String dvdAsText;
-        List <Dvd> dvdList = this.getAllDvds();
-
+        
+        List <Dvd> dvdList = new ArrayList<>(dvds.values());
+        
+        for (Dvd d : dvdList){
+            System.out.println(d.getTitle());
+        }
         try {
             out = new PrintWriter(new FileWriter(LIBRARY_FILE));
             
             for (Dvd currentDvd : dvdList) {
-
+                
                 dvdAsText = marshallDvd(currentDvd);
 
                 out.println(dvdAsText);
@@ -145,7 +155,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
             }
             out.close();
         } catch (IOException e) {
-            //handle 
+            System.out.println("catch");
         }
         
     }

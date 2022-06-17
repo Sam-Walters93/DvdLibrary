@@ -157,7 +157,5 @@ public class DvdLibraryView {
         io.print("4. Studio name");
         io.print("5. Exit edit menu");
         return io.readInt("Please select from the above choices.", 1,5);
-    }
-     
-     
+    }    
 }

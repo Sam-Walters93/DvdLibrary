@@ -22,7 +22,7 @@ public interface DvdLibraryDao {
     
     Dvd editDvd(String title);
     
-    Dvd changeRating (String title, String rating);
+    Dvd changeRating(String title, String rating);
     
     Dvd changeDirector(String title, String name);
     
