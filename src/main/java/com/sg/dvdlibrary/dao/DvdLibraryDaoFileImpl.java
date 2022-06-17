@@ -5,10 +5,17 @@
 package com.sg.dvdlibrary.dao;
 
 import com.sg.dvdlibrary.dto.Dvd;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
@@ -22,11 +29,23 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
    
     
     private Map<String, Dvd> dvds = new HashMap<>();
-
+    private final String DELIMITER = "::";
+    private final String LIBRARY_FILE;
     
+    
+    public DvdLibraryDaoFileImpl() {
+        LIBRARY_FILE = "DvdLibrary.txt";
+    }
+    
+    public DvdLibraryDaoFileImpl(String libraryTextFile) {
+        LIBRARY_FILE = libraryTextFile;
+    }
+ 
     @Override
     public Dvd addDvd(String title, Dvd dvd) {
+        loadLibrary();
         Dvd prevD = dvds.put(title, dvd); 
+        writeLibrary();
         return prevD;
     }
 
@@ -70,5 +89,85 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         Dvd dvdToChange = dvds.get(title);
         dvdToChange.setStudio(studio);
         return dvdToChange;
+    }
+    
+    private void loadLibrary() {
+        
+        Scanner scanner = new Scanner(System.in);
+        
+        try {
+            
+            scanner = new Scanner(
+                    new BufferedReader(
+                            new FileReader(LIBRARY_FILE)));
+        } catch (FileNotFoundException e) {
+           
+        }
+        
+        String currentLine;
+        Dvd currentDvd;
+       
+        while (scanner.hasNextLine()) {
+            
+            currentLine = scanner.nextLine();
+           
+            currentDvd = unmarshallDvd(currentLine);
+            
+            
+            dvds.put(currentDvd.getTitle(),currentDvd);
+        }
+        scanner.close();
+    }
+    
+    private void writeLibrary() {
+   
+        PrintWriter out;
+        String dvdAsText;
+        List <Dvd> dvdList = this.getAllDvds();
+
+        try {
+            out = new PrintWriter(new FileWriter(LIBRARY_FILE));
+            
+            for (Dvd currentDvd : dvdList) {
+
+                dvdAsText = marshallDvd(currentDvd);
+
+                out.println(dvdAsText);
+
+                out.flush();   
+            }
+            out.close();
+        } catch (IOException e) {
+            //handle 
+        }
+        
+    }
+    
+    
+    private String marshallDvd(Dvd dvd) {
+        String dvdAsText = dvd.getTitle() + DELIMITER;
+        dvdAsText += dvd.getDirector() + DELIMITER;
+        dvdAsText += dvd.getRating() + DELIMITER;
+        dvdAsText += dvd.getStudio();
+        return dvdAsText;
+    }
+    
+    
+    private Dvd unmarshallDvd(String dvdAsText) {
+        
+        String [] dvdTokens = dvdAsText.split(DELIMITER);
+     
+        String title = dvdTokens[0];
+        String mpaaRating = dvdTokens[1];
+        String directorName = dvdTokens[2];
+        String studio = dvdTokens[3];
+        
+     
+        Dvd dvdFromFile = new Dvd(title);
+   
+        dvdFromFile.setRating(mpaaRating);
+        dvdFromFile.setDirector(directorName);
+        dvdFromFile.setStudio(studio);
+        return dvdFromFile;
     }
 }

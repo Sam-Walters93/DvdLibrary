@@ -4,6 +4,8 @@
  */
 package com.sg.dvdlibrary.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author stwal
@@ -15,13 +17,22 @@ public class Dvd {
     private String director;
     private String studio;
     private String note;
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.title);
+        hash = 31 * hash + Objects.hashCode(this.rating);
+        hash = 31 * hash + Objects.hashCode(this.director);
+        hash = 31 * hash + Objects.hashCode(this.studio);
+        return hash;
+    }
 
     public Dvd(String title) {
         this.title = title;
     }
     
-    
-
     public String getTitle() {
         return title;
     }
