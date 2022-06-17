@@ -30,17 +30,21 @@ public class DvdLibraryView {
     
     public Dvd getNewDvdInfo() {
         String title = io.readString("Please enter title");
+        String releaseDate = io.readString("Please Enter release date (just year is fine)");
         String rating = io.readString("Please enter MPAA rating");
         String director = io.readString("Please enter director's name");
         String studio = io.readString("Please enter producing studio");
         String note = io.readString("Any notes about the film?");
         
+//        System.out.println(title +" " + releaseDate);
+        
         Dvd currentDvd = new Dvd(title);
+        currentDvd.setReleaseDate(releaseDate);
         currentDvd.setRating(rating);
         currentDvd.setDirector(director);
         currentDvd.setStudio(studio);
         currentDvd.setNote(note);
-        
+//        System.out.println(currentDvd.getTitle() +" " + currentDvd.getReleaseDate() + "con");
         return currentDvd;
     }
     
@@ -54,10 +58,12 @@ public class DvdLibraryView {
     
     public void displayDvds(List<Dvd> dList) {
         for(Dvd dvd : dList) {
-            String dvdInfo = String.format("%s : %s (%s)", 
+            String dvdInfo = String.format("%s : %s %s (%s)", 
                     dvd.getTitle(),
+                    dvd.getReleaseDate(),
                     dvd.getDirector(),
-                    dvd.getRating()
+                    dvd.getRating(),
+                    dvd.getNote()
                     );
             
             io.print(dvdInfo);
@@ -81,6 +87,7 @@ public class DvdLibraryView {
     public void displayDvd (Dvd dvd) {
         if (dvd != null) {
             io.print(dvd.getTitle());
+            io.print(dvd.getReleaseDate());
             io.print(dvd.getDirector());
             io.print(dvd.getRating());
             io.print(dvd.getStudio());
@@ -126,6 +133,10 @@ public class DvdLibraryView {
         return io.readString("Please enter new MPAA rating");
     }
     
+     public String getReleaseDate() {
+        return io.readString("Please enter new release date");
+    }
+    
     public void displayEditResults() {
         io.print("-----------TITLE EDITED-------------");
     }
@@ -141,10 +152,11 @@ public class DvdLibraryView {
         io.print("Which field do you want to change?");
         io.print("Edit DVD menu");
         io.print("1. Director's Name");
-        io.print("2. MPAA rating");
-        io.print("3. Studio name");
-        io.print("4. Exit edit menu");
-        return io.readInt("Please select from the above choices.", 1,4);
+        io.print("2. Release Date");
+        io.print("3. MPAA rating");
+        io.print("4. Studio name");
+        io.print("5. Exit edit menu");
+        return io.readInt("Please select from the above choices.", 1,5);
     }
      
      

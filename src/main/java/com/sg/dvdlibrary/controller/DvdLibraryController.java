@@ -47,6 +47,7 @@ public class DvdLibraryController {
     private void createDvd() {
         view.displayCreateDvdBanner();
         Dvd newD = view.getNewDvdInfo();
+//        System.out.println(newD.getTitle() +" " + newD.getReleaseDate() + "con");
         
         dao.addDvd(newD.getTitle(), newD);
         
@@ -111,13 +112,16 @@ public class DvdLibraryController {
                    case 1:
                        this.editDirector(dTitle);
                        break;
-                   case 2:
-                       this.editRating(dTitle);
+                   case 2: 
+                       this.editReleaseDate(dTitle);
                        break;
                    case 3:
-                       this.editStudio(dTitle);
+                       this.editRating(dTitle);
                        break;
                    case 4:
+                       this.editStudio(dTitle);
+                       break;
+                   case 5:
                        keepGoing = false;
                        break;
                    default: 
@@ -146,6 +150,12 @@ public class DvdLibraryController {
     private void editStudio(String title){
        String newStudio = view.getStudioName();
        Dvd editDvd = dao.changeStudio(title, newStudio);
+       view.displayEditResults();
+    }
+    
+    private void editReleaseDate(String title){
+       String newDate = view.getReleaseDate();
+       Dvd editDvd = dao.changeDate(title, newDate);
        view.displayEditResults();
     }
 }

@@ -91,6 +91,13 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         return dvdToChange;
     }
     
+    @Override 
+    public Dvd changeDate(String title, String date) {
+        Dvd dvdToChange = dvds.get(title);
+        dvdToChange.setReleaseDate(date);
+        return dvdToChange;
+    }
+    
     private void loadLibrary() {
         
         Scanner scanner = new Scanner(System.in);
@@ -146,6 +153,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     
     private String marshallDvd(Dvd dvd) {
         String dvdAsText = dvd.getTitle() + DELIMITER;
+        dvdAsText += dvd.getReleaseDate() + DELIMITER;
         dvdAsText += dvd.getDirector() + DELIMITER;
         dvdAsText += dvd.getRating() + DELIMITER;
         dvdAsText += dvd.getStudio();
@@ -158,13 +166,14 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         String [] dvdTokens = dvdAsText.split(DELIMITER);
      
         String title = dvdTokens[0];
-        String mpaaRating = dvdTokens[1];
-        String directorName = dvdTokens[2];
-        String studio = dvdTokens[3];
+        String releaseDate = dvdTokens[1];
+        String mpaaRating = dvdTokens[2];
+        String directorName = dvdTokens[3];
+        String studio = dvdTokens[4];
         
      
         Dvd dvdFromFile = new Dvd(title);
-   
+        dvdFromFile.setReleaseDate(releaseDate);
         dvdFromFile.setRating(mpaaRating);
         dvdFromFile.setDirector(directorName);
         dvdFromFile.setStudio(studio);

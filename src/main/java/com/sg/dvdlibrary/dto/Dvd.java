@@ -13,6 +13,7 @@ import java.util.Objects;
 public class Dvd {
     
     private String title;
+    private String releaseDate;
     private String rating;
     private String director;
     private String studio;
@@ -23,6 +24,7 @@ public class Dvd {
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Objects.hashCode(this.title);
+        hash = 31 * hash + Objects.hashCode(this.releaseDate);
         hash = 31 * hash + Objects.hashCode(this.rating);
         hash = 31 * hash + Objects.hashCode(this.director);
         hash = 31 * hash + Objects.hashCode(this.studio);
@@ -39,6 +41,14 @@ public class Dvd {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+     public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getRating() {

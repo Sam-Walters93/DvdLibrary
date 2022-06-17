@@ -27,4 +27,6 @@ public interface DvdLibraryDao {
     Dvd changeDirector(String title, String name);
     
     Dvd changeStudio(String title, String name);
+    
+    Dvd changeDate(String title, String name);
 }
